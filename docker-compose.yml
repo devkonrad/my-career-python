@@ -2,6 +2,7 @@ version: '3'
 
 services:
   db:
+    container_name: db
     image: postgres:14.1-alpine
     restart: always
     ports:
@@ -11,43 +12,53 @@ services:
       - POSTGRES_PASSWORD=postgres
     volumes:
       - ./db/sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+    networks:
+      mynetwork:
 
   api:
+    container_name: api
+    restart: always
     build: ./api/
     command: python api.py
     ports:
       - '5100:5000'
     networks:
-      - mynetwork
+      mynetwork:
+    links:
+      - db
     depends_on:
       - db
   
   app:
+    container_name: app
     build: ./app/
     command: python app.py
     ports:
       - '5200:5000'
     networks:
-      - mynetwork
+      mynetwork:
     depends_on:
       - db
       - api
 
   admin:
-    container_name: pgadmin
+    container_name: admin
     image: dpage/pgadmin4
+    restart: always
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@admin.com
       - PGADMIN_DEFAULT_PASSWORD=admin
     ports:
       - "5300:80"
     networks:
-      - mynetwork
+      mynetwork:
     depends_on:
       - db
 
 volumes:
     postgres:
+
 networks:
   mynetwork:
+    name: mynetwork
     driver: bridge

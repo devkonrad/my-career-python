@@ -20,3 +20,5 @@ VALUES
     ('My Job 4','Lorem ipsum dolor sit amet, consectetur', NOW()),
     ('My Job 5','Lorem ipsum dolor sit amet, consectetur', NOW()),
     ('My Job 6','Lorem ipsum dolor sit amet, consectetur', NOW());
+
+SELECT version();

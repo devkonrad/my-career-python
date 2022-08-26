@@ -1,12 +1,20 @@
-from typing import Optional
 import uvicorn
 from fastapi import FastAPI
+from fastapi_sqlalchemy import DBSessionMiddleware, db
 
+from models import Job as ModelJob
 api = FastAPI()
+api.add_middleware(DBSessionMiddleware, db_url="postgresql+psycopg2://postgres:postgres@db/mycarrer")
 
 @api.get("/")
-def read_root():
-  return {"hello" : "world"}
+async def root():
+    return {"message": "hello world"}
 
-if __name__ == "__main__":
- uvicorn.run(api, host="0.0.0.0", port=5000)
+@api.get('/jobs/')
+async def jobs():
+    jobs = db.session.query(ModelJob).all()
+    return jobs
+    
+# To run locally
+if __name__ == '__main__':
+    uvicorn.run(api, host='0.0.0.0', port=5000)
