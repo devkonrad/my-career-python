@@ -12,9 +12,11 @@
     rel="stylesheet">
   <link rel="stylesheet" href="static/css/app.css">
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
 </head>
 
 <body>
+  {% raw %}
   <div class="container" id="app">
     <header>
       <h1>{{ name }}</h1>
@@ -33,8 +35,8 @@
     <div v-for="(todo,index) in todos">
       <div class="task">
         <div v-on:click="toggleStatus(index)" class="status" v-bind:class="todo.status"></div>
-        <div class="text"></div>
-        <img v-on:click="toggleModal(index)" src="img/garbage.png" alt="Excluir" class="delete">
+        <div class="text">{{ todo.title }}</div>
+        <img v-on:click="toggleModal(index)" src="static/img/garbage.png" alt="Excluir" class="delete">
       </div>
     </div>
 
@@ -48,22 +50,38 @@
         </div>
       </div>
     </div>
-
   </div>
-
+  {% endraw %}
 
   <script>
+    Vue.prototype.$http = axios;
+
     var app = new Vue({
       el: '#app',
       data: {
         name: 'My Career App',
         task: '',
         selectedItem: null,
-        selectedTask: 'sss',
+        selectedTask: null,
         showModal: false,
-        todos: JSON.parse('{{ job_list }}')
+        todos: [
+          { title: 'My First Job', status: 'done' },
+          { title: 'My Second Job', status: 'pending' },
+          { title: 'My Third Job', status: 'pending' },
+        ]
       },
       methods: {
+        async getData() {
+          try {
+            const response = await this.$http.get(
+              "api:5000/jobs"
+            );
+
+            this.todos = response.data;
+          } catch (error) {
+            console.log(error);
+          }
+        },
         toggleModal: function (index) {
           this.showModal = !this.showModal;
 
@@ -88,7 +106,10 @@
         toggleStatus: function (index) {
           this.todos[index].status = this.todos[index].status === 'pending' ? 'done' : 'pending';
         }
-      }
+      },
+      created() {
+        this.getData();
+      },
     });
 
   </script>

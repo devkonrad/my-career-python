@@ -7,15 +7,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def get_jobs():
-  url = "http://api:5000/jobs"
-  
-  response = urllib.request.urlopen(url)
-  data = response.read()
-  list = json.loads(data)
-
-  print(list, file=sys.stderr)
-
-  return render_template("home.html", name=name, job_list=json.dumps(list))
+  return render_template("home.html", name=name)
   
 @app.route("/job/<id>")
 def jobs(id):

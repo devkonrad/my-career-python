@@ -1,10 +1,21 @@
 import uvicorn
 from fastapi import FastAPI
 from fastapi_sqlalchemy import DBSessionMiddleware, db
+from starlette.middleware.cors import CORSMiddleware
 
 from models import Job as ModelJob
 api = FastAPI()
+
 api.add_middleware(DBSessionMiddleware, db_url="postgresql+psycopg2://postgres:postgres@db/mycarrer")
+
+# Cors for local tests
+api.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @api.get("/")
 async def root():
