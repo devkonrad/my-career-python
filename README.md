@@ -15,7 +15,6 @@ It will up the following services:
 
 ## Continuos Integration/Delivery (CD/CI)
 - ``Circle CI:`` This repository is integrated trough the Circle CI solution
-- 
 
 ## 💻 Technologies and Tools
 ![](https://img.shields.io/badge/Code-Python-blueviolet?logo=python&logoColor=white) ![](https://img.shields.io/badge/Code-Javascript-blueviolet?logo=javascript&logoColor=white) ![](https://img.shields.io/badge/Code-HTML-blueviolet?logo=html5&logoColor=white) ![](https://img.shields.io/badge/Code-CSS-blueviolet?logo=html5&logoColor=white) ![](https://img.shields.io/badge/Code-Flask-blueviolet?logo=python&logoColor=white) ![](https://img.shields.io/badge/Code-Jinja-blueviolet?logo=jinja&logoColor=white) ![](https://img.shields.io/badge/Code-VueJS-blueviolet?logo=Javascript&logoColor=white) ![](https://img.shields.io/badge/Code-SQLAlchemy-blueviolet?logo=python&logoColor=white) ![](https://img.shields.io/badge/Code-FastAPI-blueviolet?logo=python&logoColor=white) ![](https://img.shields.io/badge/Code-Docker-blueviolet?logo=docker&logoColor=white) ![](https://img.shields.io/badge/Code-DockerCompose-blueviolet?logo=python&logoColor=white) ![](https://img.shields.io/badge/Code-UnitTest-blueviolet?logo=docker&logoColor=white) ![](https://img.shields.io/badge/Code-Pytest-blueviolet?logo=python&logoColor=white)
